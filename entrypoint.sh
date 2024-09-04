@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cat <EOF >> /etc/dnsmasq.conf
+cat <<EOF >> /etc/dnsmasq.conf
 domain-needed
 bogus-priv
 strict-order
