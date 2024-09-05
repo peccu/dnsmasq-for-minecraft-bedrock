@@ -1,5 +1,5 @@
-FROM alpine:latest
-RUN apk add dnsmasq
+FROM itzg/minecraft-bedrock-server
+RUN apt-get update && apt-get install -y dnsmasq
 ADD dnsmasq.conf /
 ADD entrypoint.sh /
 RUN chmod +x /entrypoint.sh
