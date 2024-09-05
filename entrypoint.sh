@@ -6,4 +6,7 @@ for i in geo.hivebedrock.network play.galaxite.net mco.mineplex.com mco.cubecraf
 do
 echo "$MINECRAFT_SERVER $i" >> /etc/hosts
 done
-exec dnsmasq -kdq
+nohup dnsmasq -kdq | cat -
+
+/usr/local/bin/entrypoint-demoter --match /data --debug --stdin-on-term stop /opt/bedrock-entry.sh
+
