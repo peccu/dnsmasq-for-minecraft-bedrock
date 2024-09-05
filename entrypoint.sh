@@ -1,7 +1,7 @@
 #!/bin/sh
 
 cat /dnsmasq.conf >> /etc/dnsmasq.conf
-awk "{print \"$MINECRAFT_SERVER\" \$0}" </hosts >>/etc/hosts
+awk "{print \"$MINECRAFT_SERVER \" \$0}" </hosts >>/etc/hosts
 
 nohup dnsmasq -kdq | cat -
 
