@@ -2,6 +2,7 @@
 
 cat /dnsmasq.conf >> /etc/dnsmasq.conf
 awk "{print \"$MINECRAFT_SERVER \" \$0}" </hosts >>/etc/hosts
+awk "{printf(\"cname=%s,$MINECRAFT_SERVER\n\", \$0);}" </hosts >> /etc/dnsmasq.conf
 
 nohup dnsmasq -kd | cat -
 
