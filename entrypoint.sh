@@ -10,7 +10,8 @@ else
   awk "{printf(\"cname=%s,$MINECRAFT_SERVER\n\", \$0);}" </hosts >> /etc/dnsmasq.conf
 fi
 
-nohup dnsmasq -kd | cat -
+# nohup dnsmasq -kd | cat -
+# /usr/local/bin/entrypoint-demoter --match /data --debug --stdin-on-term stop /opt/bedrock-entry.sh
 
-/usr/local/bin/entrypoint-demoter --match /data --debug --stdin-on-term stop /opt/bedrock-entry.sh
-
+# only dnsmasq
+dnsmasq -k
