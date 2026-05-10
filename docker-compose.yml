@@ -1,0 +1,21 @@
+services:
+  dnsmasq:
+    build: .
+    image: dnsmasq-for-minecraft-bedrock
+    container_name: dnsmasq
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+    environment:
+      MINECRAFT_SERVER: 127.0.0.1
+    volumes:
+      # Drop a local.conf into ./dnsmasq.d/ for site-specific DHCP/static settings.
+      - ./dnsmasq.d:/etc/dnsmasq.d:ro
+      # Persist DHCP leases. Run `touch dnsmasq.leases` before the first `up`.
+      - ./dnsmasq.leases:/var/lib/misc/dnsmasq.leases
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
