@@ -12,12 +12,31 @@ both depending on what you mount into `dnsmasq.d/`.
 
 ## Quickstart
 
+The committed `docker-compose.yml` pulls a prebuilt image from
+`ghcr.io/peccu/dnsmasq-for-minecraft-bedrock:latest`, so cloning the
+repo is optional — you only need the compose file plus a couple of
+local config files:
+
+```
+your-deploy-dir/
+├── docker-compose.yml
+├── dnsmasq.d/
+│   └── local.conf      # DHCP / static leases (gitignored if checked in)
+└── dnsmasq.leases      # touch'd empty file
+```
+
+Bootstrap:
+
 ```sh
-cp dnsmasq.d/local.conf.example dnsmasq.d/local.conf
+cp dnsmasq.d/local.conf.example dnsmasq.d/local.conf  # if cloned
 $EDITOR dnsmasq.d/local.conf       # interface, dhcp-range, dhcp-host, etc.
 touch dnsmasq.leases               # bind-mount target for DHCP leases
-docker compose up -d --build
+docker compose up -d
 ```
+
+Update the image with `docker compose pull && docker compose up -d`.
+To build locally instead of pulling, swap the `image:` line for
+`build: .` (a comment in the compose file shows where).
 
 Point your router (or the affected clients) at this host as their
 DNS server, or let this container serve DHCP for the segment.

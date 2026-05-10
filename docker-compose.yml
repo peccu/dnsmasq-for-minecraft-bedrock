@@ -1,7 +1,8 @@
 services:
   dnsmasq:
-    build: .
-    image: dnsmasq-for-minecraft-bedrock
+    image: ghcr.io/peccu/dnsmasq-for-minecraft-bedrock:latest
+    # To build locally instead of pulling, comment the line above and uncomment:
+    # build: .
     container_name: dnsmasq
     network_mode: host
     cap_add:
@@ -14,6 +15,7 @@ services:
       # Persist DHCP leases. Run `touch dnsmasq.leases` before the first `up`.
       - ./dnsmasq.leases:/var/lib/misc/dnsmasq.leases
     restart: unless-stopped
+    pull_policy: always
     logging:
       driver: "json-file"
       options:
